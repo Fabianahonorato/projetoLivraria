@@ -1,0 +1,121 @@
+<!-- Barra de navegação superior -->
+<mat-toolbar color="primary" class="barra-topo">
+  <mat-icon class="icone-barra">auto_stories</mat-icon>
+  <span class="titulo-barra">Livraria</span>
+  <span class="espaco-flexivel"></span>
+  <button
+    mat-flat-button
+    class="botao-novo-livro"
+    (click)="abrirDialogoNovoLivro()"
+    aria-label="Adicionar novo livro"
+  >
+    <mat-icon>add</mat-icon>
+    Novo Livro
+  </button>
+</mat-toolbar>
+
+<main class="conteudo-pagina">
+
+  <!-- Campo de busca -->
+  <div class="area-busca">
+    <mat-form-field appearance="outline" subscriptSizing="dynamic">
+      <mat-label>Buscar por título ou autor</mat-label>
+      <input
+        matInput
+        [ngModel]="textoBusca()"
+        (ngModelChange)="aoBuscar($event)"
+        placeholder="Ex.: Dom Casmurro"
+        aria-label="Campo de busca"
+      />
+      <mat-icon matPrefix>search</mat-icon>
+    </mat-form-field>
+  </div>
+
+  <!-- Mensagem exibida quando não há livros para mostrar -->
+  @if (livrosFiltrados().length === 0) {
+    <div class="estado-vazio" role="status" aria-live="polite">
+      <mat-icon class="icone-vazio">menu_book</mat-icon>
+
+      @if (textoBusca()) {
+        <p class="titulo-vazio">Nenhum resultado encontrado</p>
+        <p class="subtitulo-vazio">Tente buscar por outro título ou autor.</p>
+      } @else {
+        <p class="titulo-vazio">Nenhum livro cadastrado ainda</p>
+        <p class="subtitulo-vazio">Clique em "Novo Livro" para começar.</p>
+      }
+    </div>
+  }
+
+  <!-- Tabela de livros (aparece só quando há livros) -->
+  @if (livrosFiltrados().length > 0) {
+    <mat-card class="cartao-tabela" appearance="outlined">
+      <mat-card-content>
+        <table
+          mat-table
+          [dataSource]="livrosFiltrados()"
+          class="tabela-livros"
+          aria-label="Lista de livros"
+        >
+
+          <!-- Coluna: Código -->
+          <ng-container matColumnDef="codigo">
+            <th mat-header-cell *matHeaderCellDef>Código</th>
+            <td mat-cell *matCellDef="let livro">
+              <span class="etiqueta-codigo">{{ livro.codigo }}</span>
+            </td>
+          </ng-container>
+
+          <!-- Coluna: Título -->
+          <ng-container matColumnDef="titulo">
+            <th mat-header-cell *matHeaderCellDef>Título</th>
+            <td mat-cell *matCellDef="let livro">
+              <span class="celula-titulo">{{ livro.titulo }}</span>
+            </td>
+          </ng-container>
+
+          <!-- Coluna: Autor -->
+          <ng-container matColumnDef="autor">
+            <th mat-header-cell *matHeaderCellDef>Autor</th>
+            <td mat-cell *matCellDef="let livro">{{ livro.autor }}</td>
+          </ng-container>
+
+          <!-- Coluna: Ano -->
+          <ng-container matColumnDef="ano">
+            <th mat-header-cell *matHeaderCellDef>Ano</th>
+            <td mat-cell *matCellDef="let livro">{{ livro.ano }}</td>
+          </ng-container>
+
+          <!-- Coluna: Páginas -->
+          <ng-container matColumnDef="paginas">
+            <th mat-header-cell *matHeaderCellDef>Páginas</th>
+            <td mat-cell *matCellDef="let livro">{{ livro.paginas }}</td>
+          </ng-container>
+
+          <!-- Coluna: Ações (botão remover) -->
+          <ng-container matColumnDef="acoes">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let livro" class="celula-acoes">
+              <button
+                mat-icon-button
+                color="warn"
+                (click)="removerLivro(livro)"
+                [matTooltip]="'Remover ' + livro.titulo"
+                aria-label="Remover livro"
+              >
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="colunasExibidas"></tr>
+          <tr
+            mat-row
+            *matRowDef="let linha; columns: colunasExibidas"
+            class="linha-livro"
+          ></tr>
+
+        </table>
+      </mat-card-content>
+    </mat-card>
+  }
+</main>

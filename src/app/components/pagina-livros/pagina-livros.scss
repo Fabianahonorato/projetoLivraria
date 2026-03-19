@@ -1,0 +1,128 @@
+// Estilo da barra de navegação superior
+.barra-topo {
+  position: sticky;  // Fica fixa no topo ao rolar a página
+  top: 0;
+  z-index: 100;
+  gap: 8px;
+  padding: 0 24px;
+
+  .icone-barra {
+    margin-right: 8px;
+  }
+
+  .titulo-barra {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  // Empurra o botão para a direita usando flexbox
+  .espaco-flexivel {
+    flex: 1 1 auto;
+  }
+
+  .botao-novo-livro {
+    gap: 4px;
+    background-color: white;
+    color: var(--mat-toolbar-container-text-color, #1a73e8);
+    font-weight: 600;
+  }
+}
+
+// Área de conteúdo principal com largura máxima e espaçamento
+.conteudo-pagina {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 24px;
+
+  // Em telas pequenas (celular), reduz o espaçamento
+  @media (max-width: 600px) {
+    padding: 16px 12px;
+  }
+}
+
+.area-busca {
+  margin-bottom: 24px;
+
+  mat-form-field {
+    max-width: 480px;
+  }
+}
+
+// Exibido quando não há livros cadastrados ou encontrados
+.estado-vazio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 24px;
+  text-align: center;
+  color: #78909c;
+
+  .icone-vazio {
+    font-size: 72px;
+    width: 72px;
+    height: 72px;
+    margin-bottom: 16px;
+    opacity: 0.4;
+  }
+
+  .titulo-vazio {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0 0 8px;
+    color: #546e7a;
+  }
+
+  .subtitulo-vazio {
+    font-size: 0.95rem;
+    margin: 0;
+  }
+}
+
+.cartao-tabela {
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+
+// Estilos da tabela de livros
+.tabela-livros {
+  width: 100%;
+
+  // Estilo da etiqueta de código (ex.: BK-2025-1234)
+  .etiqueta-codigo {
+    display: inline-block;
+    background: #e3f2fd;
+    color: #1565c0;
+    border-radius: 6px;
+    padding: 2px 10px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+
+  .celula-titulo {
+    font-weight: 500;
+  }
+
+  .celula-acoes {
+    text-align: right;
+    padding-right: 8px;
+  }
+
+  // Destaca a linha ao passar o mouse
+  .linha-livro:hover {
+    background-color: #f5f9ff;
+    transition: background-color 0.15s ease;
+  }
+
+  // Cabeçalho da tabela em maiúsculas discretas
+  th.mat-mdc-header-cell {
+    font-weight: 700;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: #546e7a;
+  }
+}

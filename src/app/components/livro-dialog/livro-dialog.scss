@@ -1,0 +1,62 @@
+// Container principal do modal — empilha os elementos verticalmente
+.container-dialogo {
+  display: flex;
+  flex-direction: column;
+  min-width: 320px;
+}
+
+// Cabeçalho do modal com ícone e título
+.cabecalho-dialogo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 24px 8px;
+  font-size: 1.2rem;
+  font-weight: 600;
+
+  .icone-cabecalho {
+    color: var(--mdc-theme-primary, #1a73e8);
+    font-size: 1.6rem;
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+}
+
+// Área de conteúdo com scroll caso o formulário seja grande demais
+.conteudo-dialogo {
+  padding: 8px 24px 0 !important;
+  overflow-y: auto;
+  max-height: 65vh;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 0;
+  }
+
+  // Grade de duas colunas para Ano e Páginas ficarem lado a lado
+  .campos-em-linha {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+
+    // Em telas pequenas, empilha os campos verticalmente
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+// Área de botões alinhada à direita
+.acoes-dialogo {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 16px 24px 20px !important;
+
+  button {
+    min-width: 110px;
+    gap: 4px;
+  }
+}
